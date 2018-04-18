@@ -141,10 +141,14 @@ public class UCISequenceClassificationExample {
 
 
         // ----- Train the network, evaluating the test set performance at each epoch -----
-        int nEpochs = 40;
+        int nEpochs = 10;
         String str = "Test set evaluation at epoch %d: Accuracy = %.2f, F1 = %.2f";
+        String str2 = "Get predict at epoch %d: %s";
         for (int i = 0; i < nEpochs; i++) {
             net.fit(trainData);
+
+            log.info(String.format(str2, i, net.rnnTimeStep(testData.next(1).getFeatureMatrix()).toString()));
+
 
             //Evaluate on the test set:
             RegressionEvaluation evaluation = net.evaluateRegression(testData);
